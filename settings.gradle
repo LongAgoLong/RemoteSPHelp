@@ -1,0 +1,2 @@
+include ':app', ':provider', ':resolver', ':client'
+rootProject.name='RemoteSPHelp'
