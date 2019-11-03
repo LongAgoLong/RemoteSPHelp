@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mResultTv;
     private Button mEnsureBtn;
 
-    private SpResolver spResolver;
+    private SpResolver spResolver = new SpResolver(this, "com.android.sp.provider");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        spResolver = new SpResolver(this, "com.android.sp.provider");
 
     }
 }

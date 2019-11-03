@@ -15,7 +15,7 @@ import com.leo.sp.resolver.SpResolver;
 public class MainActivity extends AppCompatActivity {
     private TextView mResultTv;
     private Button mEnsureBtn;
-    private SpResolver spResolver;
+    private SpResolver spResolver = new SpResolver(MainActivity.this, getMetaValue("authority"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         mEnsureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spResolver = new SpResolver(MainActivity.this, getMetaValue("authority"));
                 spResolver.setString("test1", "这是测试数据1");
                 spResolver.setBoolean("test2", true);
                 spResolver.setInt("test3", 1000);
