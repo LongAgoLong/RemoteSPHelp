@@ -1,4 +1,4 @@
-package com.leo.sp.resolver;
+package com.leo.sp.provider;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -195,5 +195,4 @@ public class SpResolver {
                 Uri.parse(SpContants.CONTENT_URI + SpContants.SEPARATOR + SpContants.TYPE_CLEAN);
         cr.delete(uri, null, null);
     }
-
 }

@@ -3,6 +3,7 @@
     package="com.leo.remotesphelp">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,7 +22,7 @@
             android:name="authority"
             android:value="com.android.sp.provider" />
         <provider
-            android:name="com.leo.sp.provider.SpProvider"
+            android:name="com.leo.sp.provider.SPContentProvider"
             android:authorities="com.android.sp.provider"
             android:exported="true"
             android:grantUriPermissions="true" />
