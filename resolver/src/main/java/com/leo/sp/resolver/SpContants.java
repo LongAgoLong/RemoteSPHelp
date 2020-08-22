@@ -10,7 +10,7 @@ public class SpContants {
     public static final String CONTENT = "content://";
     public static String AUTHORITY = "";
     public static final String SEPARATOR = "/";
-    public static final String CONTENT_URI = CONTENT + AUTHORITY;
+    public static String CONTENT_URI = "";
     public static final String TYPE_STRING = "string";
     public static final String TYPE_INT = "int";
     public static final String TYPE_LONG = "long";
@@ -25,6 +25,7 @@ public class SpContants {
 
     public static void initAuthority(Context context) {
         AUTHORITY = getMetaValue(context, "authority");
+        CONTENT_URI = CONTENT + AUTHORITY;
     }
 
     private static String getMetaValue(Context context, String metaKey) {

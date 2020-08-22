@@ -1,15 +1,17 @@
 package com.leo.sp.provider;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 public class SpContants {
 
     public static final String CONTENT = "content://";
     public static String AUTHORITY = "";
     public static final String SEPARATOR = "/";
-    public static final String CONTENT_URI = CONTENT + AUTHORITY;
+    public static String CONTENT_URI = "";
     public static final String TYPE_STRING = "string";
     public static final String TYPE_INT = "int";
     public static final String TYPE_LONG = "long";
@@ -27,18 +29,19 @@ public class SpContants {
     public static final String CURSOR_COLUMN_VALUE = "cursor_value";
 
 
-    public static void initAuthority(Context context) {
-        AUTHORITY = getMetaValue(context, "authority");
+    public static void initAuthority(Application application) {
+        AUTHORITY = getMetaValue(application, "authority");
+        CONTENT_URI = CONTENT + AUTHORITY;
     }
 
-    private static String getMetaValue(Context context, String metaKey) {
+    public static String getMetaValue(Application application, String metaKey) {
         String metaValue = null;
         if (metaKey == null) {
             return null;
         }
         try {
-            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    context.getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo appInfo = application.getPackageManager().getApplicationInfo(
+                    application.getPackageName(), PackageManager.GET_META_DATA);
             metaValue = appInfo.metaData.getString(metaKey);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

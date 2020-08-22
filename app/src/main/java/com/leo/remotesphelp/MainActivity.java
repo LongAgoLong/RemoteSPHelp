@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 SpResolver.getInstance().save("test3", 1000);
                 SpResolver.getInstance().save("test4", 100.456f);
                 SpResolver.getInstance().save("test5", System.currentTimeMillis());
-                mResultTv.append("保存数据完成");
+                mResultTv.append("保存数据完成\n");
             }
         });
     }

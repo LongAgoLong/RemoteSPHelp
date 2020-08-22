@@ -88,13 +88,11 @@ class SPImpl {
 
     static String get(Context context, String name, String type) {
         Object value = getCachedValue(name);
-        if (value != null) {
-            return value + "";
-        } else {
+        if (value == null) {
             value = getImpl(context, name, type);
             setValueToCached(name, value);
-            return value + "";
         }
+        return value + "";
     }
 
     private static Object getImpl(Context context, String name, String type) {
