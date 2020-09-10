@@ -23,7 +23,7 @@ public class SPContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        SpResolver.getInstance().setContext(getContext());
+        SpResolver.getInstance().init(getContext());
         return true;
     }
 
@@ -78,13 +78,17 @@ public class SPContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+        if (null == values) {
+            return null;
+        }
         String[] path = uri.getPath().split(SpContants.SEPARATOR);
         String type = path[1];
         String key = path[2];
-        Object obj = (Object) values.get(SpContants.VALUE);
+        Object obj = values.get(SpContants.VALUE);
         if (obj != null) {
             SPImpl.save(getContext(), key, obj);
         }
+        getContext().getContentResolver().notifyChange(uri, null);
         return null;
     }
 
@@ -100,6 +104,7 @@ public class SPContentProvider extends ContentProvider {
         if (SPImpl.contains(getContext(), key)) {
             SPImpl.remove(getContext(), key);
         }
+        getContext().getContentResolver().notifyChange(uri, null);
         return 0;
     }
 

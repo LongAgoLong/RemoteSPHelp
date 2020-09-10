@@ -10,6 +10,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         SpContants.initAuthority(this);
-        SpResolver.getInstance().setContext(this);
+        SpResolver.getInstance().init(this);
     }
 }

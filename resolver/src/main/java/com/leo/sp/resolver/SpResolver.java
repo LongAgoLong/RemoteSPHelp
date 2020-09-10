@@ -37,7 +37,7 @@ public class SpResolver {
         return context;
     }
 
-    public void setContext(Context mContext) {
+    public void init(Context mContext) {
         contextWeakReference = new WeakReference<>(mContext);
     }
 
@@ -50,7 +50,6 @@ public class SpResolver {
             ContentValues cv = new ContentValues();
             cv.put(SpContants.VALUE, t);
             cr.update(uri, cv, null, null);
-            cr.notifyChange(uri, null);
         }
     }
 
@@ -63,7 +62,6 @@ public class SpResolver {
             ContentValues cv = new ContentValues();
             cv.put(SpContants.VALUE, t);
             cr.update(uri, cv, null, null);
-            cr.notifyChange(uri, null);
         }
     }
 
@@ -76,7 +74,6 @@ public class SpResolver {
             ContentValues cv = new ContentValues();
             cv.put(SpContants.VALUE, t);
             cr.update(uri, cv, null, null);
-            cr.notifyChange(uri, null);
         }
     }
 
@@ -89,7 +86,6 @@ public class SpResolver {
             ContentValues cv = new ContentValues();
             cv.put(SpContants.VALUE, t);
             cr.update(uri, cv, null, null);
-            cr.notifyChange(uri, null);
         }
     }
 
@@ -102,7 +98,6 @@ public class SpResolver {
             ContentValues cv = new ContentValues();
             cv.put(SpContants.VALUE, t);
             cr.update(uri, cv, null, null);
-            cr.notifyChange(uri, null);
         }
     }
 
