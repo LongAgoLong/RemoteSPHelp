@@ -10,11 +10,11 @@
 
 ```scss
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 
 ### ②在module的build.gradle文件中添加依赖
