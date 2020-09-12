@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -15,6 +16,7 @@ import java.util.Set;
 /**
  * 依赖share存储的ContentProvider
  */
+@Keep
 public class SPContentProvider extends ContentProvider {
 
     public static final int URI_TYPE_INDEX = 1;
