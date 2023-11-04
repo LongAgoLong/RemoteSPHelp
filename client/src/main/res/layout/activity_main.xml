@@ -10,18 +10,27 @@
         android:id="@+id/resultTv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/ensureBtn"
+        app:layout_constraintBottom_toTopOf="@+id/insertBtn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ensureBtn"
+        android:id="@+id/insertBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="插入数据"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/queryBtn" />
+
+    <Button
+        android:id="@+id/queryBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="获取数据"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/insertBtn"
         app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

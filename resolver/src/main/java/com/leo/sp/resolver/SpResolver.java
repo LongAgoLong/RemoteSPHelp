@@ -8,7 +8,7 @@ import android.net.Uri;
 import java.lang.ref.WeakReference;
 
 public class SpResolver {
-    private static SpResolver mInstance;
+    private static volatile SpResolver mInstance;
     private static final Object mLock = new Object();
     private WeakReference<Context> contextWeakReference;
 
