@@ -10,7 +10,6 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.Keep
 import com.leo.sp.provider.datastore.SpDataStoreImpl
-import java.util.Arrays
 import kotlin.reflect.KClass
 
 /**
@@ -42,8 +41,7 @@ class SPContentProvider : ContentProvider() {
         return if (type == SpContants.TYPE_CONTAIN) {
             SpDataStoreImpl.containsSync(mCtx, key).toString()
         } else {
-            val value = SpDataStoreImpl.getSync(mCtx, key, getTypeClass(type))
-            return value.toString()
+            SpDataStoreImpl.getSync(mCtx, key, getTypeClass(type)).toString()
         }
     }
 
