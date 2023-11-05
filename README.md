@@ -39,17 +39,6 @@ implementation "com.github.LongAgoLong.RemoteSPHelp:provider:$Tag"
 
 - **authority**中**value**值等同于**provider**标签中的**android:authorities**属性；
 
-### ④在Application onCreate()方法中调用以下方法初始化authority
-
-```java
-@Override                                     
-public void onCreate() {                      
-    super.onCreate();                         
-    SpContants.initAuthority(this);           
-}                                             
-```
-
-
 
 ## Client客户端实现
 
@@ -73,6 +62,10 @@ implementation "com.github.LongAgoLong.RemoteSPHelp:resolver:$Tag"
 ### ③AndroidManifest.xml文件中添加以下代码
 
 ```xml
+<queries>
+    <package android:name="com.leo.remotesphelp" />
+</queries>
+
 <meta-data
     android:name="authority"
     android:value="com.android.sp.provider" />

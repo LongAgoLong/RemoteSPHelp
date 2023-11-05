@@ -6,13 +6,15 @@ import android.content.Context
 import android.database.ContentObserver
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.util.Log
 import androidx.annotation.Keep
 import com.leo.sp.provider.datastore.SpDataStoreImpl
+import java.util.Arrays
 import kotlin.reflect.KClass
 
 /**
- * 依赖share存储的ContentProvider
+ * 依赖DataStore存储的ContentProvider
  */
 @Keep
 class SPContentProvider : ContentProvider() {
@@ -55,6 +57,7 @@ class SPContentProvider : ContentProvider() {
         val type = path[1]
         val key = path[2]
         val obj = values[SpContants.VALUE]
+        Log.i(TAG, "insert: ${getCallPackage()}, type = $type, key = $key, obj = $obj")
         if (obj != null) {
             SpDataStoreImpl.put(mCtx, key, obj, getTypeClass(type))
         }
@@ -66,6 +69,7 @@ class SPContentProvider : ContentProvider() {
         val path =
             getSafePath(uri).split(SpContants.SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }
                 .toTypedArray()
+        Log.i(TAG, "delete: ${getCallPackage()}, path = ${path.contentToString()}")
         val type = path[1]
         if (type == SpContants.TYPE_CLEAN) {
             SpDataStoreImpl.clear(mCtx)
@@ -110,8 +114,16 @@ class SPContentProvider : ContentProvider() {
         contentResolver.notifyChange(uri, observer)
     }
 
+    private fun getCallPackage(): String {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            "package = $callingPackage"
+        } else {
+            "less than KITKAT"
+        }
+    }
+
     companion object {
-        private const val TAG = "SPContentProvider"
+        private const val TAG = "SpSDK_SPContentProvider"
         const val URI_TYPE_INDEX = 1
         const val URI_TYPE_VALUE_KEY_INDEX = 2
     }

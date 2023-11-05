@@ -1,4 +1,4 @@
-package com.leo.sp.provider
+package com.leo.sp.resolver
 
 import android.content.ContentValues
 import android.content.Context
