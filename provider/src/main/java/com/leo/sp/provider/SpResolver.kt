@@ -18,7 +18,7 @@ class SpResolver private constructor() {
         contextWeakReference = WeakReference(mContext)
     }
 
-    fun save(name: String, t: Boolean) {
+    fun putBoolean(name: String, t: Boolean) {
         val context = context
         val cr = context.contentResolver
         synchronized(mLock) {
@@ -32,7 +32,7 @@ class SpResolver private constructor() {
         }
     }
 
-    fun save(name: String, t: String) {
+    fun putString(name: String, t: String) {
         val context = context
         val cr = context.contentResolver
         synchronized(mLock) {
@@ -46,7 +46,7 @@ class SpResolver private constructor() {
         }
     }
 
-    fun save(name: String, t: Int) {
+    fun putInt(name: String, t: Int) {
         val context = context
         val cr = context.contentResolver
         synchronized(mLock) {
@@ -60,7 +60,7 @@ class SpResolver private constructor() {
         }
     }
 
-    fun save(name: String, t: Long) {
+    fun putLong(name: String, t: Long) {
         val context = context
         val cr = context.contentResolver
         synchronized(mLock) {
@@ -74,13 +74,27 @@ class SpResolver private constructor() {
         }
     }
 
-    fun save(name: String, t: Float) {
+    fun putFloat(name: String, t: Float) {
         val context = context
         val cr = context.contentResolver
         synchronized(mLock) {
             val uri = Uri.parse(
                 SpContants.CONTENT_URI + SpContants.SEPARATOR
                         + SpContants.TYPE_FLOAT + SpContants.SEPARATOR + name
+            )
+            val cv = ContentValues()
+            cv.put(SpContants.VALUE, t)
+            cr.update(uri, cv, null, null)
+        }
+    }
+
+    fun putDouble(name: String, t: Double) {
+        val context = context
+        val cr = context.contentResolver
+        synchronized(mLock) {
+            val uri = Uri.parse(
+                SpContants.CONTENT_URI + SpContants.SEPARATOR
+                        + SpContants.TYPE_DOUBLE + SpContants.SEPARATOR + name
             )
             val cv = ContentValues()
             cv.put(SpContants.VALUE, t)
@@ -96,9 +110,9 @@ class SpResolver private constructor() {
                     + SpContants.TYPE_STRING + SpContants.SEPARATOR + name
         )
         val rtn = cr.getType(uri)
-        return if (rtn == null || rtn == SpContants.NULL_STRING) {
+        return if (isInvalidResult(rtn)) {
             defaultValue
-        } else rtn
+        } else rtn!!
     }
 
     fun getInt(name: String, defaultValue: Int): Int {
@@ -109,9 +123,9 @@ class SpResolver private constructor() {
                     + SpContants.TYPE_INT + SpContants.SEPARATOR + name
         )
         val rtn = cr.getType(uri)
-        return if (rtn == null || rtn == SpContants.NULL_STRING) {
+        return if (isInvalidResult(rtn)) {
             defaultValue
-        } else rtn.toInt()
+        } else rtn!!.toInt()
     }
 
     fun getFloat(name: String, defaultValue: Float): Float {
@@ -122,9 +136,22 @@ class SpResolver private constructor() {
                     + SpContants.TYPE_FLOAT + SpContants.SEPARATOR + name
         )
         val rtn = cr.getType(uri)
-        return if (rtn == null || rtn == SpContants.NULL_STRING) {
+        return if (isInvalidResult(rtn)) {
             defaultValue
-        } else rtn.toFloat()
+        } else rtn!!.toFloat()
+    }
+
+    fun getDouble(name: String, defaultValue: Double): Double {
+        val context = context
+        val cr = context.contentResolver
+        val uri = Uri.parse(
+            SpContants.CONTENT_URI + SpContants.SEPARATOR
+                    + SpContants.TYPE_DOUBLE + SpContants.SEPARATOR + name
+        )
+        val rtn = cr.getType(uri)
+        return if (isInvalidResult(rtn)) {
+            defaultValue
+        } else rtn!!.toDouble()
     }
 
     fun getBoolean(name: String, defaultValue: Boolean): Boolean {
@@ -135,7 +162,7 @@ class SpResolver private constructor() {
                     + SpContants.TYPE_BOOLEAN + SpContants.SEPARATOR + name
         )
         val rtn = cr.getType(uri)
-        return if (rtn == null || rtn == SpContants.NULL_STRING) {
+        return if (isInvalidResult(rtn)) {
             defaultValue
         } else {
             rtn.toBoolean()
@@ -150,9 +177,11 @@ class SpResolver private constructor() {
                     + SpContants.TYPE_LONG + SpContants.SEPARATOR + name
         )
         val rtn = cr.getType(uri)
-        return if (rtn == null || rtn == SpContants.NULL_STRING) {
+        return if (isInvalidResult(rtn)) {
             defaultValue
-        } else rtn.toLong()
+        } else {
+            rtn!!.toLong()
+        }
     }
 
     operator fun contains(name: String): Boolean {
@@ -163,10 +192,10 @@ class SpResolver private constructor() {
                     + SpContants.TYPE_CONTAIN + SpContants.SEPARATOR + name
         )
         val rtn = cr.getType(uri)
-        return if (rtn == null || rtn == SpContants.NULL_STRING) {
+        return if (isInvalidResult(rtn)) {
             false
         } else {
-            java.lang.Boolean.parseBoolean(rtn)
+            rtn.toBoolean()
         }
     }
 
@@ -191,6 +220,10 @@ class SpResolver private constructor() {
         val cr = context.contentResolver
         val uri = Uri.parse(SpContants.CONTENT_URI + SpContants.SEPARATOR + SpContants.TYPE_CLEAN)
         cr.delete(uri, null, null)
+    }
+
+    private fun isInvalidResult(result: String?): Boolean {
+        return result == null || result == SpContants.NULL_STRING;
     }
 
     companion object {

@@ -1,7 +1,6 @@
 package com.leo.client
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             mResultTv.append(s)
         }
         mInsertBtn.setOnClickListener {
-            SpResolver.getInstance().save("test6", "随手生成的数据" + System.currentTimeMillis())
+            SpResolver.getInstance().putString("test6", "随手生成的数据" + System.currentTimeMillis())
         }
         mRemoveBtn.setOnClickListener {
             SpResolver.getInstance().remove("test6", SpContants.TYPE_STRING)

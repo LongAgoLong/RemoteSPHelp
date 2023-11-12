@@ -16,11 +16,11 @@ class MainActivity : AppCompatActivity() {
         mResultTv = findViewById(R.id.resultTv)
         mEnsureBtn = findViewById(R.id.ensureBtn)
         mEnsureBtn.setOnClickListener(View.OnClickListener {
-            SpResolver.getInstance().save("test1", "这是测试数据1")
-            SpResolver.getInstance().save("test2", true)
-            SpResolver.getInstance().save("test3", 1000 as Int)
-            SpResolver.getInstance().save("test4", 100.456f)
-            SpResolver.getInstance().save("test5", System.currentTimeMillis())
+            SpResolver.getInstance().putString("test1", "这是测试数据1")
+            SpResolver.getInstance().putBoolean("test2", true)
+            SpResolver.getInstance().putInt("test3", 1000 as Int)
+            SpResolver.getInstance().putFloat("test4", 100.456f)
+            SpResolver.getInstance().putLong("test5", System.currentTimeMillis())
             mResultTv.append("保存数据完成\n")
         })
     }
